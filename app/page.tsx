@@ -1,19 +1,15 @@
 import Header from '@/components/Header'
-import Head from 'next/head'
-import Image from 'next/image'
+import Hero from '@/components/Hero'
 
 export default function Home() {
   return (
-    <div>
-      <Head>
-        <title>Micah's Portfolio</title>
-      </Head>
-
-      {/* Header */}
+    <div className='bg-[rgb(36,36,36)] text-white h-screen snap-y snap-mandatory overflow-scroll z-0'>
       <Header />
 
       {/* Hero */}
-
+      <section id='hero' className='snap-center'>
+        <Hero />
+      </section>
       {/* About */}
 
       {/* Experience */}

@@ -32,7 +32,7 @@ function About({}: Props) {
         />
         <div className='space-y-10 px-0 md:px-10'>
             <h4 className='text-4xl font-semibold'>Here is a <span className='underline decoration-[#F7AB0A]'>little</span>{" "} background</h4>
-            <p className='text-base'></p>
+            <p className='text-base'>I specialize in building exceptional real-world digital applications.  Currently, I am focused on building fully responsive full-stack web applications with React and Typescript.</p>
         </div>
     </motion.div>
   )

@@ -3,12 +3,18 @@ import React from "react";
 import { Cursor, useTypewriter } from "react-simple-typewriter";
 import BackgroundCircles from "./BackgroundCircles";
 import Link from "next/link";
+import { fetchPageInfo } from "@/utils/fetchPageInfo";
+import { PageInfo } from "@/typings";
+import { GetStaticProps } from "next";
+import { urlFor } from "@/sanity";
 
-type Props = {};
+type Props = {
+  pageInfo: PageInfo
+}
 
-function Hero({}: Props) {
+function Hero({ pageInfo }: Props) {
   const [text, count] = useTypewriter({
-    words: ["Hi, my name is Micah Bugbee", "I'm a Full Stack Developer"],
+    words: [`Hi, my name is ${pageInfo?.name}`, "I'm a Full Stack Developer"],
     loop: true,
     delaySpeed: 2000,
   });
@@ -18,33 +24,45 @@ function Hero({}: Props) {
       <BackgroundCircles />
       <img
         className="relative rounded-full h-32 w-32 mx-auto object-cover"
-        src="https://media.licdn.com/dms/image/D5603AQHUPxcPM_H1IQ/profile-displayphoto-shrink_800_800/0/1678464510770?e=1706140800&v=beta&t=Gw_O0ajWjWlDhl5vRbs1odackC76qoXOQHOGkBpKtzk"
+        src={urlFor(pageInfo?.heroImage).url()}
         alt="Micah Bugbee"
       />
       <div className="z-20">
-        <h2 className="text-sm uppercase text-gray-500 pb-2 tracking-[15px]">Software Engineer</h2>
+        <h2 className="text-sm uppercase text-gray-500 pb-2 tracking-[15px]">
+          {pageInfo?.role}
+        </h2>
         <h1 className="text-5xl lg:text-6xl font-semibold px-10">
           <span className="mr-3">{text}</span>
           <Cursor cursorColor="#F7AB0A" />
         </h1>
 
         <div className="pt-5">
-            <Link href="#about">
-                <button className="heroButton">About</button>
-            </Link>
-            {/* <Link href="#experience">
+          <Link href="#about">
+            <button className="heroButton">About</button>
+          </Link>
+          {/* <Link href="#experience">
             <button className="heroButton">Experience</button>
             </Link> */}
-            <Link href="#skills">
+          <Link href="#skills">
             <button className="heroButton">Skills</button>
-            </Link>
-            <Link href="#projects">
+          </Link>
+          <Link href="#projects">
             <button className="heroButton">Projects</button>
-            </Link>
+          </Link>
         </div>
       </div>
     </div>
   );
 }
+
+export const getStaticProps: GetStaticProps = async () => {
+  const pageInfo = await fetchPageInfo();
+
+  return {
+    props: {
+      pageInfo,
+    },
+  };
+};
 
 export default Hero;

@@ -1,10 +1,14 @@
 "use client";
 import React from 'react'
 import { motion } from 'framer-motion'
+import { PageInfo } from '@/typings';
+import { urlFor } from '@/sanity';
 
-type Props = {}
+type Props = {
+    pageInfo: PageInfo
+}
 
-function About({}: Props) {
+function About({ pageInfo }: Props) {
   return (
     <motion.div 
     initial={{
@@ -27,12 +31,12 @@ function About({}: Props) {
         }}
         whileInView={{ opacity: 1, x: 0 }}
         viewport={{ once: true }}
-        src='https://scontent-dfw5-2.xx.fbcdn.net/v/t1.18169-9/27867579_10100284112903748_7590402413292668229_n.jpg?_nc_cat=108&ccb=1-7&_nc_sid=7a1959&_nc_ohc=8xYv1xBf5nsAX-AA3D-&_nc_oc=AQkt8IV_1JbZBkxTmHkZthkQACz8j7U5yKewXfkRk8Rd9x6_PG1m65aQCbdZeiVgJ9H-xO1gOxCtM-WrZxXlO-hv&_nc_ht=scontent-dfw5-2.xx&oh=00_AfDkcanTOipjr9yQY7ddzDldqrsF27n3ou3oxxMdibWREQ&oe=65870591'
+        src={urlFor(pageInfo?.profilePic).url()}
         className='-mb-20 md:mb-0 flex-shrink-0 w-56 h-56 rounded-full object-cover md:rounded-lg md:w-64 md:h-95 xl:w-[500px] xl:h-[600px]'
         />
         <div className='space-y-10 px-0 md:px-10'>
             <h4 className='text-4xl font-semibold'>Here is a <span className='underline decoration-[#F7AB0A]'>little</span>{" "} background</h4>
-            <p className='text-base'>I specialize in building exceptional real-world digital applications.  Currently, I am focused on building fully responsive full-stack web applications with React and Typescript.</p>
+            <p className='text-base'>{pageInfo.backgroundInformation}</p>
         </div>
     </motion.div>
   )

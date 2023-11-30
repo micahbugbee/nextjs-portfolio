@@ -1,11 +1,14 @@
 "use client";
 import React from 'react'
 import { motion } from 'framer-motion'
+import { Project } from '@/typings';
+import { urlFor } from '@/sanity';
 
-type Props = {}
+type Props = {
+    projects: Project[];
+}
 
-function Projects({}: Props) {
-    const projects = [1, 2, 3, 4, 5]
+function Projects({ projects }: Props) {
   return (
     <motion.div 
     initial={{ opacity: 0 }}
@@ -25,14 +28,20 @@ function Projects({}: Props) {
                     transition={{ duration: 1.2}}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
-                    src='https://cdn.sanity.io/images/ltuexkre/production/af7ca99b5a796d0698cf9121a4a0795b5022b6be-666x375.png' alt='' />
+                    src={urlFor(project.image).url()} alt='' height='500px' width='500px' />
                     <div className='space-y-10 px-0 md:px-10 max-w-6xl'>
                         <h4 className='text-4xl font-semibold text-center'>
-                            <span className='underline decoration-[#F7AB0A]/50'>Case Study {i + 1} of {projects.length}:</span> UPS clone
+                            <span className='underline decoration-[#F7AB0A]/50'>Case Study {i + 1} of {projects.length}:</span> {project.title}
                         </h4>
 
+                        <div className='flex items-center space-x-2 justify-center'>
+                            {project?.technologies.map((technology) => (
+                                <img className='h-10 w-10' key={technology._id} src={urlFor(technology.image).url()} alt='' />
+                            ))}
+                        </div>
+
                         <p className='text-lg text-center md:text-left'>
-                            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Assumenda cum voluptatem aspernatur, iste, quod at magni quia exercitationem eveniet dolores obcaecati reprehenderit, ut hic excepturi voluptatibus tenetur ab blanditiis corrupti.
+                            {project.summary}
                         </p>
                     </div>
                 </div>

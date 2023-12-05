@@ -33,6 +33,11 @@ export default {
       title: "LinkToBuild",
       type: "url",
     },
+    {
+      name: "linkToDemo",
+      title: "LinkToDemo",
+      type: "url",
+    },
   ],
 };
 

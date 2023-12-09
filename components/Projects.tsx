@@ -1,65 +1,40 @@
 "use client";
 import React from "react";
-import { motion } from "framer-motion";
 import { Project } from "@/typings";
 import { urlFor } from "@/sanity";
+import Link from "next/link";
 
 type Props = {
   projects: Project[];
 };
 
 function Projects({ projects }: Props) {
+
   return (
-    <motion.div
-      initial={{ opacity: 0 }}
-      whileInView={{ opacity: 1 }}
-      transition={{ duration: 1.5 }}
-      className="h-screen relative flex overflow-hidden flex-col text-left md:flex-row max-w-full justify-evenly mx-auto items-center z-0 "
-    >
+    <div className="h-screen relative flex overflow-hidden flex-col text-left md:flex-row max-w-full justify-evenly mx-auto items-center z-0 ">
       <h3 className="absolute top-24 uppercase tracking-[20px] text-gray-500 text-2xl">
         Projects
       </h3>
 
       <div className="relative w-full flex snap-x snap-mandatory z-20 overflow-y-hidden scrollbar-track-gray-400/20 scrollbar-thumb-[#F7AB0A]/80 scrollbar-thin">
         {projects.map((project, i) => (
-          <div className="w-screen flex-shrink-0 snap-center flex flex-col space-y-5 items-center justify-center p-20 md:p-44 h-screen">
-            {/* <motion.img
-              initial={{
-                y: -300,
-                opacity: 0,
-              }}
-              transition={{ duration: 1.2 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              src={urlFor(project.image).url()}
-              alt=""
-              height={500}
-              width={500}
-            /> */}
-
+          <div key={project._id} className="w-screen flex-shrink-0 snap-center flex flex-col space-y-5 items-center justify-center p-20 md:p-44 h-screen">
             <div
-              style={{ backgroundImage: `${project.image}` }}
+              style={{ backgroundImage: `url(${urlFor(project.image).url()})` }}
               className="shadow-lg shadow-[#040c16] group rounded-md 
               flex justify-center text-center items-center mx-auto content-div "
             >
               {/* Hover effect for project images */}
               <div className="opacity-0 group-hover:opacity-100">
-                <div className="pt-8 text-center ">
-                  <a href={project.linkToBuild} target="_blank" rel="noreferrer">
-                    <button
-                      className="text-center rounded-lg px-4 py-3 m-2
-                       bg-white text-gray-700 font-bold text-lg"
-                    >
-                      Code
-                    </button>
-                  </a>
-                  <a href={project.linkToBuild} target="_blank" rel="noreferrer">
-                    <button
-                      className="text-center rounded-lg px-4 py-3 m-2
-                       bg-white text-gray-700 font-bold text-lg"
-                    >
-                      Demo
-                    </button>
+                <div className="pt-8 text-center">
+                  <Link
+                    href={project.linkToBuild}
+                    target="_blank"
+                  >
+                    <button className="heroButton mr-10">Code</button>
+                  </Link>
+                  <a href={project.linkToDemo} target="_blank">
+                    <button className="heroButton">Demo</button>
                   </a>
                 </div>
               </div>
@@ -93,7 +68,7 @@ function Projects({ projects }: Props) {
       </div>
 
       <div className="w-full absolute top-[30%] bg-[#F7AB0A]/10 left-0 h-[500px] -skew-y-12" />
-    </motion.div>
+    </div>
   );
 }
 

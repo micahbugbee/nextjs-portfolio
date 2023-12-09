@@ -13,15 +13,9 @@ import { fetchSkills } from '@/utils/fetchSkills'
 import { fetchProjects } from '@/utils/fetchProjects'
 import { fetchSocials } from '@/utils/fetchSocials'
 
-type Props = {
-  pageInfo: PageInfo;
-  experiences: Experience[];
-  skills: Skill[];
-  projects: Project[];
-  socials: Social[];
-}
 
-export default async function Home({}: Props) {
+
+export default async function Home() {
   const pageInfo: PageInfo = await fetchPageInfo();
   const socials: Social[] = await fetchSocials();
   const skills: Skill[] = await fetchSkills();
@@ -30,6 +24,7 @@ export default async function Home({}: Props) {
 
   return (
     <div className='bg-[rgb(36,36,36)] text-white h-screen snap-y snap-mandatory overflow-y-scroll overflow-x-hidden z-0 scrollbar scrollbar-track-gray-400/20 scrollbar-thumb-[#F7AB0A]/80'>
+
       <Header socials={socials} />
 
       <section id='hero' className='snap-start'>
